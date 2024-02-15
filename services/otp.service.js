@@ -38,7 +38,7 @@ async function sendOTP(params,callback){
 async function verifyOTP(params, callback){
     let[hashValue,expires]=params.hash.split('.');
     let now = Date.now();
-    if(now> parseInt(expires)) return callback("OTP Expired");
+    if(now> parseInt(expires)) return callback("OTP is Expired");
     let data = `${params.email}.${params.otp}.${expires}`;
     let newCalculatedHash = crypto.createHmac("sha256",key).update(data).digest;
      return newCalculatedHash==hashValue? callback(null,"Success"):callback("Invalid OTP");
